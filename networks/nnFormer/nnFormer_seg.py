@@ -1,11 +1,11 @@
 from einops import rearrange
 from copy import deepcopy
-from networks.nnFormer.utilities.nd_softmax import softmax_helper
+from DUXNet.networks.nnFormer.utilities.nd_softmax import softmax_helper
 from torch import nn
 import torch
 import numpy as np
-from networks.nnFormer.initialization import InitWeights_He
-from networks.nnFormer.neural_network import SegmentationNetwork
+from DUXNet.networks.nnFormer.initialization import InitWeights_He
+from DUXNet.networks.nnFormer.neural_network import SegmentationNetwork
 import torch.nn.functional
 
 

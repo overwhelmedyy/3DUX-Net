@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
-from networks.TransBTS.Transformer import TransformerModel
-from networks.TransBTS.PositionalEncoding import FixedPositionalEncoding,LearnedPositionalEncoding
-from networks.TransBTS.Unet_skipconnection import Unet
+from DUXNet.networks.TransBTS.Transformer import TransformerModel
+from DUXNet.networks.TransBTS.PositionalEncoding import FixedPositionalEncoding,LearnedPositionalEncoding
+from DUXNet.networks.TransBTS.Unet_skipconnection import Unet
 
 
 class TransformerBTS(nn.Module):

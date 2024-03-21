@@ -16,7 +16,7 @@ from typing import Union
 import torch.nn.functional as F
 from lib.utils.tools.logger import Logger as Log
 from lib.models.tools.module_helper import ModuleHelper
-from networks.UXNet_3D.uxnet_encoder import uxnet_conv
+from DUXNet.networks.UXNet_3D.uxnet_encoder import uxnet_conv
 
 class ProjectionHead(nn.Module):
     def __init__(self, dim_in, proj_dim=256, proj='convmlp', bn_type='torchbn'):
@@ -300,3 +300,48 @@ class UXNET(nn.Module):
         # feat = self.conv_proj(dec4)
         
         return self.out(out)
+
+    def para_num(self):
+
+        uxnet_3d_para = sum(p.numel() for p in self.uxnet_3d.parameters())
+        encoder1_para = sum(p.numel() for p in self.encoder1.parameters())
+        encoder2_para = sum(p.numel() for p in self.encoder2.parameters())
+        encoder3_para = sum(p.numel() for p in self.encoder3.parameters())
+        encoder4_para = sum(p.numel() for p in self.encoder4.parameters())
+        encoder5_para = sum(p.numel() for p in self.encoder5.parameters())
+        decoder5_para = sum(p.numel() for p in self.decoder5.parameters())
+        decoder4_para = sum(p.numel() for p in self.decoder4.parameters())
+        decoder3_para = sum(p.numel() for p in self.decoder3.parameters())
+        decoder2_para = sum(p.numel() for p in self.decoder2.parameters())
+        decoder1_para = sum(p.numel() for p in self.decoder1.parameters())
+        out_para = sum(p.numel() for p in self.out.parameters())
+
+        print(f'uxnet_3d_para: {uxnet_3d_para}', f'{uxnet_3d_para / 1_000_000:.2f}M\n'
+                f'encoder1_para: {encoder1_para}', f'{encoder1_para / 1_000_000:.2f}M\n'
+                f'encoder2_para: {encoder2_para}', f'{encoder2_para / 1_000_000:.2f}M\n'
+                f'encoder3_para: {encoder3_para}', f'{encoder3_para / 1_000_000:.2f}M\n'
+                f'encoder4_para: {encoder4_para}', f'{encoder4_para / 1_000_000:.2f}M\n'
+                f'encoder5_para: {encoder5_para}', f'{encoder5_para / 1_000_000:.2f}M\n'
+                f'decoder5_para: {decoder5_para}', f'{decoder5_para / 1_000_000:.2f}M\n'
+                f'decoder4_para: {decoder4_para}', f'{decoder4_para / 1_000_000:.2f}M\n'
+                f'decoder3_para: {decoder3_para}', f'{decoder3_para / 1_000_000:.2f}M\n'
+                f'decoder2_para: {decoder2_para}', f'{decoder2_para / 1_000_000:.2f}M\n'
+                f'decoder1_para: {decoder1_para}', f'{decoder1_para / 1_000_000:.2f}M\n'
+                f'out_para: {out_para}', f'{out_para / 1_000_000:.2f}M'
+                )
+
+# uxnet_3d_para: 1311936 1.31M
+# encoder1_para: 63552 0.06M
+# encoder2_para: 377856 0.38M
+# encoder3_para: 1511424 1.51M
+# encoder4_para: 6045696 6.05M
+# encoder5_para: 24182784 24.18M
+# decoder5_para: 14598144 14.60M
+# decoder4_para: 3649536 3.65M
+# decoder3_para: 912384 0.91M
+# decoder2_para: 228096 0.23M
+# decoder1_para: 124416 0.12M
+# out_para: 98 0.00M
+
+
+

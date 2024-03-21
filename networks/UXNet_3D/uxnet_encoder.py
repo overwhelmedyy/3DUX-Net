@@ -148,3 +148,13 @@ class uxnet_conv(nn.Module):
         x = self.forward_features(x)
         return x
 
+
+if __name__ == '__main__':
+    def compute_network_parameter_number(network):
+        return sum(p.numel() for p in network.parameters())
+
+    model = uxnet_conv()
+    para_num = compute_network_parameter_number(model)
+    print(para_num, f'{para_num / 1_000_000:.2f}M')
+
+

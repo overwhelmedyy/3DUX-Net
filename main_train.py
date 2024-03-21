@@ -28,29 +28,25 @@ import argparse
 
 parser = argparse.ArgumentParser(description='3D UX-Net hyperparameters for medical image segmentation')
 ## Input data hyperparameters
-parser.add_argument('--root', type=str, default='', required=True, help='Root folder of all your images and labels')
-parser.add_argument('--output', type=str, default='', required=True, help='Output folder for both tensorboard and the best model')
-parser.add_argument('--dataset', type=str, default='flare', required=True, help='Datasets: {feta, flare, amos}, Fyi: You can add your dataset here')
+args = argparse.Namespace(
+    root='',                    # Root folder of all your images and labels
+    output='',                  # Output folder for both tensorboard and the best model
+    dataset='flare',            # Datasets: {feta, flare, amos}, Fyi: You can add your dataset here
+    network='3DUXNET',          # Network models: {TransBTS, nnFormer, UNETR, SwinUNETR, 3DUXNET}
+    mode='train',               # Training or testing mode
+    pretrain=False,             # Have pretrained weights or not
+    pretrained_weights='',      # Path of pretrained weights
+    batch_size=1,               # Batch size for subject input
+    crop_sample=2,              # Number of cropped sub-volumes for each subject
+    lr=0.0001,                  # Learning rate for training
+    optim='AdamW',              # Optimizer types: Adam / AdamW
+    max_iter=40000,             # Maximum iteration steps for training
+    eval_step=500,              # Per steps to perform validation
+    gpu='0',                    # Your GPU number
+    cache_rate=0.1,             # Cache rate to cache your dataset into GPUs
+    num_workers=2               # Number of workers
+)
 
-## Input model & training hyperparameters
-parser.add_argument('--network', type=str, default='3DUXNET', help='Network models: {TransBTS, nnFormer, UNETR, SwinUNETR, 3DUXNET}')
-parser.add_argument('--mode', type=str, default='train', help='Training or testing mode')
-parser.add_argument('--pretrain', default=False, help='Have pretrained weights or not')
-parser.add_argument('--pretrained_weights', default='', help='Path of pretrained weights')
-parser.add_argument('--batch_size', type=int, default='1', help='Batch size for subject input')
-parser.add_argument('--crop_sample', type=int, default='2', help='Number of cropped sub-volumes for each subject')
-parser.add_argument('--lr', type=float, default=0.0001, help='Learning rate for training')
-parser.add_argument('--optim', type=str, default='AdamW', help='Optimizer types: Adam / AdamW')
-parser.add_argument('--max_iter', type=int, default=40000, help='Maximum iteration steps for training')
-parser.add_argument('--eval_step', type=int, default=500, help='Per steps to perform validation')
-
-## Efficiency hyperparameters
-parser.add_argument('--gpu', type=str, default='0', help='your GPU number')
-parser.add_argument('--cache_rate', type=float, default=0.1, help='Cache rate to cache your dataset into GPUs')
-parser.add_argument('--num_workers', type=int, default=2, help='Number of workers')
-
-
-args = parser.parse_args()
 
 os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 print('Used GPU: {}'.format(args.gpu))

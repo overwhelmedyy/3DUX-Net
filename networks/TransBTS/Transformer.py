@@ -1,5 +1,5 @@
 import torch.nn as nn
-from networks.TransBTS.IntmdSequential import IntermediateSequential
+from DUXNet.networks.TransBTS.IntmdSequential import IntermediateSequential
 
 
 class SelfAttention(nn.Module):
