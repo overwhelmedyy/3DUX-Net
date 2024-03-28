@@ -29,7 +29,7 @@ class MultiDatasetLoader(data.Dataset):
     `root_dirs` is list of strings representing root directory of each dataset.
     `base_class` is an task-specific dataloader class, such as `DefaultLoader`, `OffsetLoader`.
 
-    During training, this object will serve `N * MAX` items within an epoch, where `N` is 
+    During training, this object will serve `N * MAX` items within an epochs, where `N` is
     number of datasets, and `MAX` is maximum items number among the `N` datasets.
 
     Items with index `N * j + i` is guaranteed to be the j-th item from the i-th dataset,

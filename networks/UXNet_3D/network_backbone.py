@@ -16,7 +16,7 @@ from typing import Union
 import torch.nn.functional as F
 from lib.utils.tools.logger import Logger as Log
 from lib.models.tools.module_helper import ModuleHelper
-from DUXNet.networks.UXNet_3D.uxnet_encoder import uxnet_conv
+from UXNet_3D.networks.UXNet_3D.uxnet_encoder import uxnet_conv
 
 class ProjectionHead(nn.Module):
     def __init__(self, dim_in, proj_dim=256, proj='convmlp', bn_type='torchbn'):
@@ -94,8 +94,8 @@ class UXNET(nn.Module):
         self,
         in_chans=1,
         out_chans=13,
-        depths=[2, 2, 2, 2],
-        feat_size=[48, 96, 192, 384],
+        depths=(2, 2, 2, 2),
+        feat_size=(48, 96, 192, 384),
         drop_path_rate=0,
         layer_scale_init_value=1e-6,
         hidden_size: int = 768,
